@@ -1,0 +1,14 @@
+D:\Projects\BeyondCampaign\beyondcampaign.api\obj\Debug\netcoreapp2.1\BeyondCampaign.API.csprojAssemblyReference.cache
+D:\Projects\BeyondCampaign\beyondcampaign.api\obj\Debug\netcoreapp2.1\BeyondCampaign.API.csproj.CoreCompileInputs.cache
+D:\Projects\BeyondCampaign\beyondcampaign.api\obj\Debug\netcoreapp2.1\BeyondCampaign.API.RazorAssemblyInfo.cache
+D:\Projects\BeyondCampaign\beyondcampaign.api\obj\Debug\netcoreapp2.1\BeyondCampaign.API.RazorAssemblyInfo.cs
+D:\Projects\BeyondCampaign\beyondcampaign.api\obj\Debug\netcoreapp2.1\BeyondCampaign.API.AssemblyInfoInputs.cache
+D:\Projects\BeyondCampaign\beyondcampaign.api\obj\Debug\netcoreapp2.1\BeyondCampaign.API.AssemblyInfo.cs
+D:\Projects\BeyondCampaign\BeyondCampaign.API\bin\Debug\netcoreapp2.1\BeyondCampaign.API.deps.json
+D:\Projects\BeyondCampaign\BeyondCampaign.API\bin\Debug\netcoreapp2.1\BeyondCampaign.API.runtimeconfig.json
+D:\Projects\BeyondCampaign\BeyondCampaign.API\bin\Debug\netcoreapp2.1\BeyondCampaign.API.runtimeconfig.dev.json
+D:\Projects\BeyondCampaign\BeyondCampaign.API\bin\Debug\netcoreapp2.1\BeyondCampaign.API.dll
+D:\Projects\BeyondCampaign\BeyondCampaign.API\obj\Debug\netcoreapp2.1\BeyondCampaign.API.RazorTargetAssemblyInfo.cache
+D:\Projects\BeyondCampaign\BeyondCampaign.API\bin\Debug\netcoreapp2.1\BeyondCampaign.API.pdb
+D:\Projects\BeyondCampaign\BeyondCampaign.API\obj\Debug\netcoreapp2.1\BeyondCampaign.API.dll
+D:\Projects\BeyondCampaign\BeyondCampaign.API\obj\Debug\netcoreapp2.1\BeyondCampaign.API.pdb
