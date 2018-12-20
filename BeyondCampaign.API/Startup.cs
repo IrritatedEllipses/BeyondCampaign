@@ -42,10 +42,11 @@ namespace BeyondCampaign.API
             }
             else
             {
-                app.UseHsts();
+                // app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
         }
     }
