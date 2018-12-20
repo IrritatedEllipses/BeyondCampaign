@@ -11,7 +11,7 @@ namespace BeyondCampaign.API.Data
 
         public AuthRepository(DataContext context)
         {
-            context = _context;
+            _context = context;
         }
         public async Task<User> Login(string username, string password)
         {
