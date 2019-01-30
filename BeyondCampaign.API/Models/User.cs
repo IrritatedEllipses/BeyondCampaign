@@ -11,9 +11,9 @@ namespace BeyondCampaign.API.Models
         public string Email { get; set; }
         public bool? isGM { get; set; }
         public bool? isPlayer { get; set; }
-        
 
-        
+
+
 
     }
 }
