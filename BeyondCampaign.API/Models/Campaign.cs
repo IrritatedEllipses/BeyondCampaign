@@ -7,6 +7,9 @@ namespace BeyondCampaign.API.Models
 {
     public class Campaign
     {
+        // TODO:
+        // Extend Campaign (NPCs, Items, Locations, etc...etc...)
+        // Add Requirements for 
         public int Id { get; set; }
         public string Name { get; set; }
         public User Creator { get; set; }
