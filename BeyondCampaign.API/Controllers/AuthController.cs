@@ -38,7 +38,7 @@ namespace BeyondCampaign.API.Controllers
 
             var userToCreate = new User
             {
-                Username = userForRegister.Username
+                UserName = userForRegister.Username
             };
             var CreatedUser = await _repo.Register(userToCreate, userForRegister.Password);
 
