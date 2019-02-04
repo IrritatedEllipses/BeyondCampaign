@@ -11,6 +11,11 @@ namespace BeyondCampaign.API.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
+        public DbSet<SpellComponents> SpellComponents { get; set; }
+        public DbSet<Spell> Spells { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<SessionNote> SessionNotes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

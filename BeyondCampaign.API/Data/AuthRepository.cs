@@ -1,11 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using BeyondCampaign.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeyondCampaign.API.Data
 {
-    public class AuthRepository : IAuthRepository
+    public class AuthRepository : ControllerBase
     {
         private readonly DataContext _context;
 
@@ -20,8 +21,9 @@ namespace BeyondCampaign.API.Data
             if (user == null)
                 return null;
 
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-                return null;
+            // USING IDENTITY, DO NOT NEED
+            //if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            //    return null;
 
             return user;
         }
@@ -40,11 +42,13 @@ namespace BeyondCampaign.API.Data
             return true;
         }
 
-        public async Task<User> Register(User user, string password)
+        public async Task<IActionResult> Register(User user, string password)
         {
-            byte[] passwordHash, passwordSalt;
+            // USING IDENTITY, DO NOT NEED
+            //byte[] passwordHash, passwordSalt;
 
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            //CreatePasswordHash(password, out passwordHash, out passwordSalt);
+
 
             //user.PasswordHash = passwordHash;
             //user.PasswordSalt = passwordSalt;
@@ -52,7 +56,7 @@ namespace BeyondCampaign.API.Data
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            return user;
+            return Ok(user);
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -68,7 +72,7 @@ namespace BeyondCampaign.API.Data
 
         public async Task<bool> UserExists(string username)
         {
-            if (await _context.Users.AnyAsync(x => x.Username == username))
+            if (await _context.Users.AnyAsync(x => x.UserName == username))
                 return true;
 
             return false;

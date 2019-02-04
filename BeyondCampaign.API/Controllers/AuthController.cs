@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BeyondCampaign.API.Data;
 using BeyondCampaign.API.Dtos;
 using BeyondCampaign.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,7 @@ namespace BeyondCampaign.API.Controllers
             _config = config;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegister userForRegister)
         {
