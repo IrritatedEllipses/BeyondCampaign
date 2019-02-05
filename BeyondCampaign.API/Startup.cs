@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using System.Threading.Tasks;
 using BeyondCampaign.API.Data;
 using BeyondCampaign.API.Models;
+using AutoMapper;
+using BeyondCampaign.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,6 @@ namespace BeyondCampaign.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             // Configuation settings for password ONLY FOR DEVELOPMENT
             IdentityBuilder builder = services.AddIdentityCore<User>(opt =>
             {
@@ -41,7 +41,6 @@ namespace BeyondCampaign.API
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireDigit = false;
                 opt.Password.RequireUppercase = false;
-
             });
 
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
@@ -58,9 +57,9 @@ namespace BeyondCampaign.API
                 options.Filters.Add(new AuthorizeFilter(policy));
             }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddCors();
             services.AddAutoMapper();
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));          
+            services.AddCors();
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

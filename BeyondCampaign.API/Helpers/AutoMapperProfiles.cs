@@ -10,7 +10,7 @@ namespace BeyondCampaign.API.Helpers
 {
     public class AutoMapperProfiles : Profile
     {
-        public static void AutoMapperProfiles()
+        public AutoMapperProfiles()
         {
             CreateMap<UserForRegisterDto, User>();
         }

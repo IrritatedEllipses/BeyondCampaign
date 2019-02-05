@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
+using BeyondCampaign.API.Dtos;
 using BeyondCampaign.API.Models;
 
 namespace BeyondCampaign.API.Data
 {
     public interface IAuthRepository
     {
-         Task<User> Register(User user, string password);
+         Task<User> Register(UserForRegisterDto userForRegisterDto);
          Task<User> Login(string username, string password);
          Task<bool> UserExists(string username);
     }

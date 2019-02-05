@@ -2,13 +2,17 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "AutoMapper/4.1.1": {
+      "AutoMapper/8.0.0": {
         "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "System.Reflection.Emit": "4.3.0"
+        },
         "compile": {
-          "lib/net45/AutoMapper.dll": {}
+          "lib/netstandard2.0/AutoMapper.dll": {}
         },
         "runtime": {
-          "lib/net45/AutoMapper.dll": {}
+          "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3180,6 +3184,20 @@
           "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
+      "SyrianBallaS.AutoMapper.Extensions.Microsoft.DependencyInjection.Signed/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "AutoMapper": "6.1.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
+          "Microsoft.Extensions.DependencyModel": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -4786,37 +4804,21 @@
     }
   },
   "libraries": {
-    "AutoMapper/4.1.1": {
-      "sha512": "wTNIFaF21i0heEEOMOLn4Ki991I+b6Ls+tiwTvmzVhkLo5PmSJcNLuf2eGJEtUnQ3UDBTAAdZEaXAgbTqOe2pg==",
+    "AutoMapper/8.0.0": {
+      "sha512": "px8ZMtIq84dxciB29V+ZYOtsRLZP4JlflDDMW13LyeRdwsnIInzlcSHSxpWmVD6U3bbOl2FeLlgomnVtm0jvXw==",
       "type": "package",
-      "path": "automapper/4.1.1",
+      "path": "automapper/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "automapper.4.1.1.nupkg.sha512",
+        "automapper.8.0.0.nupkg.sha512",
         "automapper.nuspec",
-        "lib/MonoAndroid/AutoMapper.XML",
-        "lib/MonoAndroid/AutoMapper.dll",
-        "lib/MonoTouch/AutoMapper.XML",
-        "lib/MonoTouch/AutoMapper.dll",
-        "lib/Xamarin.iOS10/AutoMapper.XML",
-        "lib/Xamarin.iOS10/AutoMapper.dll",
-        "lib/dotnet/AutoMapper.dll",
-        "lib/dotnet/AutoMapper.xml",
-        "lib/net40/AutoMapper.dll",
-        "lib/net40/AutoMapper.xml",
-        "lib/net45/AutoMapper.dll",
-        "lib/net45/AutoMapper.xml",
-        "lib/portable-net45+win+wpa81+wp80+MonoAndroid10+Xamarin.iOS10+MonoTouch10/AutoMapper.dll",
-        "lib/portable-net45+win+wpa81+wp80+MonoAndroid10+Xamarin.iOS10+MonoTouch10/AutoMapper.xml",
-        "lib/sl50/AutoMapper.XML",
-        "lib/sl50/AutoMapper.dll",
-        "lib/win/AutoMapper.dll",
-        "lib/win/AutoMapper.xml",
-        "lib/wp80/AutoMapper.dll",
-        "lib/wp80/AutoMapper.xml",
-        "lib/wpa81/AutoMapper.dll",
-        "lib/wpa81/AutoMapper.xml"
+        "lib/net461/AutoMapper.dll",
+        "lib/net461/AutoMapper.pdb",
+        "lib/net461/AutoMapper.xml",
+        "lib/netstandard2.0/AutoMapper.dll",
+        "lib/netstandard2.0/AutoMapper.pdb",
+        "lib/netstandard2.0/AutoMapper.xml"
       ]
     },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -8379,6 +8381,18 @@
         "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll",
         "sqlitepclraw.provider.e_sqlite3.netstandard11.1.1.11.nupkg.sha512",
         "sqlitepclraw.provider.e_sqlite3.netstandard11.nuspec"
+      ]
+    },
+    "SyrianBallaS.AutoMapper.Extensions.Microsoft.DependencyInjection.Signed/3.2.0": {
+      "sha512": "8bx8z4tUBhribjzrWSFHPOnoRzGSdCzsQqSVLQUc2vA0t08YcktXtk9IjwAmNeFmdoYbJ6OuIVyNpD0f7JyrIA==",
+      "type": "package",
+      "path": "syrianballas.automapper.extensions.microsoft.dependencyinjection.signed/3.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
+        "syrianballas.automapper.extensions.microsoft.dependencyinjection.signed.3.2.0.nupkg.sha512",
+        "syrianballas.automapper.extensions.microsoft.dependencyinjection.signed.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -12906,13 +12920,14 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "AutoMapper >= 4.1.1",
+      "AutoMapper >= 8.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.EntityFrameworkCore >= 2.1.1",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
+      "SyrianBallaS.AutoMapper.Extensions.Microsoft.DependencyInjection.Signed >= 3.2.0"
     ]
   },
   "packageFolders": {
@@ -12958,7 +12973,7 @@
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
-            "version": "[4.1.1, )"
+            "version": "[8.0.0, )"
           },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
@@ -12987,6 +13002,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[2.1.1, )"
+          },
+          "SyrianBallaS.AutoMapper.Extensions.Microsoft.DependencyInjection.Signed": {
+            "target": "Package",
+            "version": "[3.2.0, )"
           }
         },
         "imports": [
@@ -12996,17 +13015,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'AutoMapper 4.1.1' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.1'. This package may not be fully compatible with your project.",
-      "libraryId": "AutoMapper",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v2.1"
-      ]
-    }
-  ]
+  }
 }
