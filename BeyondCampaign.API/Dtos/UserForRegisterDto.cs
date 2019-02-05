@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BeyondCampaign.API.Dtos
 {
-    public class UserForRegister
+    public class UserForRegisterDto
     {
         [Required]
         public string Username { get; set; }

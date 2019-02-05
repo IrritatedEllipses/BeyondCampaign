@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using System.Threading.Tasks;
 using BeyondCampaign.API.Data;
 using BeyondCampaign.API.Models;
@@ -58,8 +59,8 @@ namespace BeyondCampaign.API
             }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            
+            services.AddAutoMapper();
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,7 +76,6 @@ namespace BeyondCampaign.API
             }
 
             // app.UseHttpsRedirection();
-            app.UseCors(X => X.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();

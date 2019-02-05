@@ -31,7 +31,7 @@ namespace BeyondCampaign.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserForRegister userForRegister)
+        public async Task<IActionResult> Register(UserForRegisterDto userForRegister)
         {
             userForRegister.Username = userForRegister.Username.ToLower();
 
