@@ -6,11 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 @NgModule({
    declarations: [
       AppComponent,
-      NavComponent
+      NavComponent,
+      WelcomePageComponent
    ],
    imports: [
       BrowserModule,
@@ -18,7 +20,7 @@ import { AuthService } from './_services/auth.service';
       FormsModule
    ],
    providers: [
-     AuthService
+      AuthService
    ],
    bootstrap: [
       AppComponent
