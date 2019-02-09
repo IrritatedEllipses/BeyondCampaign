@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { RegisterComponentComponent } from './register-component/register-component.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       NavComponent,
-      WelcomePageComponent
+      WelcomePageComponent,
+      RegisterComponentComponent
    ],
    imports: [
       BrowserModule,
