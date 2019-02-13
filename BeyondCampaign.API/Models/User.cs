@@ -11,6 +11,5 @@ namespace BeyondCampaign.API.Models
         public bool isGm { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime LastActive { get; set; }
-        
     }
 }

@@ -9,10 +9,19 @@ namespace BeyondCampaign.API.Dtos
     public class UserForRegisterDto
     {
         [Required]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         public string Password { get; set; }
-        
+        public string Email { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime LastActive { get; set; }
+
+        public UserForRegisterDto()
+        {
+            Created = DateTime.Now;
+            LastActive = DateTime.Now;
+        }
+
     }
 }

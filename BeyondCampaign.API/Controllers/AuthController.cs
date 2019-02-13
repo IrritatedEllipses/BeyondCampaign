@@ -37,6 +37,18 @@ namespace BeyondCampaign.API.Controllers
             _signInManager = signInManager;
         }
 
+        [HttpGet("isUserNameAvailable/{username}")]
+        public async Task<IActionResult> IsUserNameAvailable(string username)
+        {
+            var result = await _userManager.FindByNameAsync(username);
+
+            if (result == null)
+            {
+                return Ok(true);
+            }
+            return BadRequest();
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -48,7 +60,7 @@ namespace BeyondCampaign.API.Controllers
                 return Ok(userForRegisterDto);
             }
 
-            return BadRequest("Cannot Complete");
+            return BadRequest(result.Errors);
 
         }
 

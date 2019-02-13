@@ -206,6 +206,10 @@ namespace BeyondCampaign.API.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    IsPlayer = table.Column<bool>(nullable: false),
+                    isGm = table.Column<bool>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    LastActive = table.Column<DateTime>(nullable: false),
                     CampaignId = table.Column<int>(nullable: true),
                     SessionNoteId = table.Column<int>(nullable: true)
                 },

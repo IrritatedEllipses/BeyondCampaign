@@ -145,10 +145,16 @@ namespace BeyondCampaign.API.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("DateCreated");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("IsPlayer");
+
+                    b.Property<DateTime>("LastActive");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -174,6 +180,8 @@ namespace BeyondCampaign.API.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<bool>("isGm");
 
                     b.HasKey("Id");
 

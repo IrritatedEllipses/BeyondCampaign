@@ -71,6 +71,7 @@ namespace BeyondCampaign.API
                     ValidateAudience = false
                 };
             });
+            Mapper.Reset();
             services.AddAutoMapper();
             services.AddCors();
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));

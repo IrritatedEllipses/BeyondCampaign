@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeyondCampaign.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190204030411_InitMigration")]
+    [Migration("20190213202316_InitMigration")]
     partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -147,10 +147,16 @@ namespace BeyondCampaign.API.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("DateCreated");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("IsPlayer");
+
+                    b.Property<DateTime>("LastActive");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -176,6 +182,8 @@ namespace BeyondCampaign.API.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<bool>("isGm");
 
                     b.HasKey("Id");
 
