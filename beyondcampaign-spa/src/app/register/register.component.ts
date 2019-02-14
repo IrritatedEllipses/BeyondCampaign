@@ -1,8 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { FormBuilder, FormGroup, Validators, FormControl, } from '@angular/forms';
-import { User } from '../_models/User';
-import { fbind } from 'q';
 
 @Component({
   selector: 'app-register',
@@ -35,10 +33,9 @@ export class RegisterComponent implements OnInit {
   }
 
   userNameTakenValidator(g: FormGroup) {
-    if (this.authService.checkUsernameNotTaken) {
-      return true;
-    }
-    return false;
+    // const userName = g.get('userName').value();
+    // console.log(this.authService.checkUsernameNotTaken(userName));
+    console.log(g.get('userName').value);
   }
 
   cancel() {

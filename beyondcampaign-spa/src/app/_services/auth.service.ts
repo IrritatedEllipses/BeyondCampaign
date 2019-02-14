@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/User';
-import { ok } from 'assert';
 
 @Injectable({
     providedIn: 'root'
@@ -29,10 +28,6 @@ register(user: User) {
 }
 
 checkUsernameNotTaken(userName: string) {
-    return this.http.get(this.baseUrl + 'isUserNameAvailable/' + userName)
-    .subscribe(res => {
-        console.log(res);
-    });
-}
-
+    return this.http.get(this.baseUrl + 'isUserNameAvailable/' + userName).subscribe();
+    }
 }

@@ -44,9 +44,9 @@ namespace BeyondCampaign.API.Controllers
 
             if (result == null)
             {
-                return Ok(true);
+                return Ok();
             }
-            return BadRequest();
+            return BadRequest("Username or Password error");
         }
 
         [HttpPost("register")]
