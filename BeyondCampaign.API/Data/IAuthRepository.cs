@@ -9,5 +9,7 @@ namespace BeyondCampaign.API.Data
          Task<User> Register(UserForRegisterDto userForRegisterDto);
          Task<User> Login(string username, string password);
          Task<bool> UserExists(string username);
+         Task<int> FindUserIdByUsername();
+         Task<string> GenerateJWT(User user);
     }
 }
