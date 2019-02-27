@@ -12,7 +12,6 @@ namespace BeyondCampaign.API.Models
         // Add Requirements for 
         public int Id { get; set; }
         public string Name { get; set; }
-        public int CreatorId { get; set; }
         public User Creator { get; set; }
         public User[] Players { get; set; }
     }
