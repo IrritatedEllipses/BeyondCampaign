@@ -76,6 +76,7 @@ namespace BeyondCampaign.API
             services.AddCors();
             services.AddScoped<IUsersRespository, UsersRepository>();
             services.AddScoped<ICampaignRepository, CampaignRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
         }
 

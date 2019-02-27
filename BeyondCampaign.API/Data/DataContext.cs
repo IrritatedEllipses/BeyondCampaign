@@ -33,6 +33,11 @@ namespace BeyondCampaign.API.Data
                     .HasForeignKey(ur => ur.UserId)
                     .IsRequired();
             });
+
+
         }
+
+
+
     }
 }
