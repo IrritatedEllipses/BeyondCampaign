@@ -13,8 +13,7 @@ namespace BeyondCampaign.API.Models
         [Required]
         public Campaign CampaignId { get; set; }
 
-        [Required]
-        public DateTime DateOfSession { get; set; }
+        public DateTime? DateOfSession { get; set; }
 
         [Required]
         public DateTime DateLogCreated { get; set; }
@@ -30,5 +29,11 @@ namespace BeyondCampaign.API.Models
 
         public DateTime LastUpdated { get; set; }
         public User[] TaggedUsers { get; set; }
+
+        public SessionNote()
+        {
+            this.DateLogCreated = DateTime.Now;
+            this.LastUpdated = DateTime.Now;
+        }
     }
 }
