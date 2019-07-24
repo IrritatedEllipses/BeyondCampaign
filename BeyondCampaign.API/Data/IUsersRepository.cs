@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BeyondCampaign.API.Data
 {
-    internal interface IUsersRespository
+    public interface IUsersRepository
     {
         Task<int> GetUserIdByUserName(string username);
         Task<bool> IsUserNameAvailable(string username);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace BeyondCampaign.API.Data
@@ -15,14 +16,8 @@ namespace BeyondCampaign.API.Data
         }
 
         public async Task<bool> CampaignExists(int id)
-        {
-            var exists = await _context.Campaigns.FindAsync(id);
-
-            if (exists.Id > 0)
-            {
-                return true;
-            }
-            return false;
+        { 
+            return await _context.Campaigns.AnyAsync(x => x.Id == id);
         }
     }
 }

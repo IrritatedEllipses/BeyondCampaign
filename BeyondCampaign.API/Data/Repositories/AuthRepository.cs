@@ -15,7 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace BeyondCampaign.API.Data
 {
-    public class AuthRepository : ControllerBase
+    public class AuthRepository : IAuthRepository
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
@@ -33,23 +33,14 @@ namespace BeyondCampaign.API.Data
             _config = config;
         }
 
-        public async Task<User> Login(string username, string password)
+        public async Task<User> Register(UserForRegisterDto userForRegisterDto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == username);
-
-            if (user == null)
-                return null;
-
-            return user;
-        }
-
-        public async Task<bool> Register(UserForRegisterDto userForRegisterDto)
-        {
-
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
             var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
 
-            return result.Succeeded ? true : false;
+            if (result.Succeeded)
+                await _signInManager.SignInAsync(userToCreate, isPersistent: true);
+                return userToCreate;
         }
 
         public string GenerateJWT(User user)

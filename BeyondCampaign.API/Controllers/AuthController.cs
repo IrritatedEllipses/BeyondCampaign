@@ -23,19 +23,14 @@ namespace BeyondCampaign.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _config;
-        private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly UsersRepository _usersRepository;
-        private readonly AuthRepository _authRepository;
+        private readonly IUsersRepository _usersRepository;
+        private readonly IAuthRepository _authRepository;
 
-        public AuthController(IConfiguration config, IMapper mapper,
-            UserManager<User> userManager, SignInManager<User> signInManager, 
-            UsersRepository usersRepository, AuthRepository authRepository)
+        public AuthController(IUsersRepository usersRepository, IAuthRepository authRepository,
+            UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _config = config;
-            _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
             _usersRepository = usersRepository;
@@ -57,9 +52,9 @@ namespace BeyondCampaign.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            var result = _authRepository.Register(userForRegisterDto);
+            var result = await _authRepository.Register(userForRegisterDto);
 
-            if (await result)
+            if (result.Id > 0)
             {
                 return Ok(userForRegisterDto);
             }

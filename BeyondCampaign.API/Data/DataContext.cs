@@ -15,6 +15,7 @@ namespace BeyondCampaign.API.Data
         public DbSet<Spell> Spells { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<SessionNote> SessionNotes { get; set; }
+        public DbSet<CampaignModelMapping> CampaignModelMappings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BeyondCampaign.API.Dtos;
 using BeyondCampaign.API.Models;
+using BeyondCampaign.API.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace BeyondCampaign.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<SessionNoteDto, SessionNote>();
+            CreateMap<SessionNote, SessionNoteDto>();
         }
     }
 }

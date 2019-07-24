@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BeyondCampaign.API.Data;
 using BeyondCampaign.API.Models;
+using BeyondCampaign.API.Models.DTOs;
 
 namespace BeyondCampaign.API.Controllers
 {
@@ -15,69 +16,59 @@ namespace BeyondCampaign.API.Controllers
     public class SessionNotesController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly ISessionNotesRepository _noteRepo;
+        private readonly ICampaignRepository _campaignRepo;
 
-        public SessionNotesController(DataContext context)
+        public SessionNotesController(DataContext context, ISessionNotesRepository noteRepo, ICampaignRepository campaignRepo)
         {
             _context = context;
+            _noteRepo = noteRepo;
+            _campaignRepo = campaignRepo;
         }
 
         // GET: api/SessionNotes
-        [HttpGet]
-        public IEnumerable<SessionNote> GetSessionNotes()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSessionNotes([FromRoute] int campaignId)
         {
-            return _context.SessionNotes;
+            if (await _campaignRepo.CampaignExists(campaignId)) 
+            {
+                var sessionNotes = await _noteRepo.GetSessionNotes(campaignId);
+                return Ok(sessionNotes);
+            }          
+
+            return BadRequest();
         }
 
         // GET: api/SessionNotes/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSessionNote([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
+            var noteExists = await _noteRepo.NoteExists(id);
+
+            if (noteExists)
             {
-                return BadRequest(ModelState);
+                var sessionNote = await _noteRepo.GetSessionNote(id);
+                return Ok(sessionNote);
             }
 
-            var sessionNote = await _context.SessionNotes.FindAsync(id);
-
-            if (sessionNote == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(sessionNote);
+            return BadRequest();
         }
 
         // PUT: api/SessionNotes/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSessionNote([FromRoute] int id, [FromBody] SessionNote sessionNote)
+        public async Task<IActionResult> PutSessionNote([FromRoute] int id, [FromBody] SessionNoteDto sessionNoteDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != sessionNote.Id)
+            if (id != sessionNoteDto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(sessionNote).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SessionNoteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _noteRepo.Update(sessionNoteDto);
 
             return NoContent();
         }
@@ -91,8 +82,7 @@ namespace BeyondCampaign.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.SessionNotes.Add(sessionNote);
-            await _context.SaveChangesAsync();
+            await _noteRepo.Add(sessionNote);
 
             return CreatedAtAction("GetSessionNote", new { id = sessionNote.Id }, sessionNote);
         }
@@ -101,21 +91,14 @@ namespace BeyondCampaign.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSessionNote([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var sessionNote = await _context.SessionNotes.FindAsync(id);
-            if (sessionNote == null)
+            if (!await _noteRepo.NoteExists(id))
             {
                 return NotFound();
             }
 
-            _context.SessionNotes.Remove(sessionNote);
-            await _context.SaveChangesAsync();
+            await _noteRepo.Delete(id);
 
-            return Ok(sessionNote);
+            return Ok();
         }
 
         private bool SessionNoteExists(int id)

@@ -14,6 +14,11 @@ namespace BeyondCampaign.API.Models
         public string Name { get; set; }
         public int CreatorId { get; set; }
         public User Creator { get; set; }
-        public User[] Players { get; set; }
+        public List<User> Players { get; set; }
+        public CampaignModelMapping SessionNotesList { get; set; }
+        public Campaign()
+        {
+            SessionNotesList.CampaignId = Id;
+        }
     }
 }
