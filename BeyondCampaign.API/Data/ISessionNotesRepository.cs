@@ -1,4 +1,5 @@
 ﻿using BeyondCampaign.API.Models;
+using BeyondCampaign.API.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace BeyondCampaign.API.Data
     public interface ISessionNotesRepository
     {
         Task<SessionNote> Add(SessionNote sessionNote);
-        Task<SessionNote> Delete(SessionNote sessionNote);
-        Task<SessionNote> Update(SessionNote sessionNote);
-        Task<IEnumerable<SessionNote>> GetSessionNotes();
-        Task<SessionNote> GetSessionNote();
+        Task<bool> Delete(int id);
+        Task<SessionNote> Update(SessionNoteDto sessionNoteDto);
+        Task<bool> NoteExists(int id);
+        Task<List<SessionNote>> GetSessionNotes(int campaignId);
+        Task<SessionNote> GetSessionNote(int id);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BeyondCampaign.API.Data
 {
-    public class UsersRepository : IUsersRespository
+    public class UsersRepository : IUsersRepository
     {
         private readonly UserManager<User> _userManager;
         private readonly DataContext _context;
@@ -28,11 +28,8 @@ namespace BeyondCampaign.API.Data
         public async Task<bool> IsUserNameAvailable(string username)
         {
             var user = await _context.Users.FindAsync(username);
-            if (user.Id > 0)
-            {
-                return true;
-            }
-            return false;
+
+            return user.Id > 0 ? true : false;
         }
     }
 }

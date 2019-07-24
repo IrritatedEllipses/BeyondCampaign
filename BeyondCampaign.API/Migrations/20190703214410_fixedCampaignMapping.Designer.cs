@@ -9,21 +9,21 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeyondCampaign.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190213202316_InitMigration")]
-    partial class InitMigration
+    [Migration("20190703214410_fixedCampaignMapping")]
+    partial class fixedCampaignMapping
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099");
 
             modelBuilder.Entity("BeyondCampaign.API.Models.Campaign", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CreatorId");
+                    b.Property<int>("CreatorId");
 
                     b.Property<string>("Name");
 
@@ -32,6 +32,21 @@ namespace BeyondCampaign.API.Migrations
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Campaigns");
+                });
+
+            modelBuilder.Entity("BeyondCampaign.API.Models.CampaignModelMapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CampaignId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampaignId")
+                        .IsUnique();
+
+                    b.ToTable("CampaignModelMappings");
                 });
 
             modelBuilder.Entity("BeyondCampaign.API.Models.Role", b =>
@@ -67,22 +82,26 @@ namespace BeyondCampaign.API.Migrations
                     b.Property<string>("Body")
                         .IsRequired();
 
-                    b.Property<int>("CampaignIdId");
+                    b.Property<int>("CampaignId");
+
+                    b.Property<int?>("CampaignModelMappingId");
 
                     b.Property<DateTime>("DateLogCreated");
 
-                    b.Property<DateTime>("DateOfSession");
+                    b.Property<DateTime?>("DateOfSession");
 
                     b.Property<DateTime>("LastUpdated");
 
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<bool>("Updated");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("CampaignIdId");
+                    b.HasIndex("CampaignModelMappingId");
 
                     b.ToTable("SessionNotes");
                 });
@@ -154,6 +173,8 @@ namespace BeyondCampaign.API.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<bool>("IsGm");
+
                     b.Property<bool>("IsPlayer");
 
                     b.Property<DateTime>("LastActive");
@@ -180,10 +201,10 @@ namespace BeyondCampaign.API.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
+                    b.Property<string>("UserDisplayName");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<bool>("isGm");
 
                     b.HasKey("Id");
 
@@ -286,7 +307,16 @@ namespace BeyondCampaign.API.Migrations
                 {
                     b.HasOne("BeyondCampaign.API.Models.User", "Creator")
                         .WithMany()
-                        .HasForeignKey("CreatorId");
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BeyondCampaign.API.Models.CampaignModelMapping", b =>
+                {
+                    b.HasOne("BeyondCampaign.API.Models.Campaign")
+                        .WithOne("SessionNotesList")
+                        .HasForeignKey("BeyondCampaign.API.Models.CampaignModelMapping", "CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BeyondCampaign.API.Models.SessionNote", b =>
@@ -296,10 +326,9 @@ namespace BeyondCampaign.API.Migrations
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BeyondCampaign.API.Models.Campaign", "CampaignId")
-                        .WithMany()
-                        .HasForeignKey("CampaignIdId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("BeyondCampaign.API.Models.CampaignModelMapping")
+                        .WithMany("SessionNotes")
+                        .HasForeignKey("CampaignModelMappingId");
                 });
 
             modelBuilder.Entity("BeyondCampaign.API.Models.Spell", b =>

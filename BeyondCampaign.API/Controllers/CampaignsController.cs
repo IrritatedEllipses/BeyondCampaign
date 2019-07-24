@@ -17,11 +17,11 @@ namespace BeyondCampaign.API.Controllers
     {
         private readonly DataContext _context;
         private readonly UserManager<User> _userManager;
-        private readonly AuthRepository _authRepository;
-        private readonly CampaignRepository _campaign;
+        private readonly IAuthRepository _authRepository;
+        private readonly ICampaignRepository _campaign;
 
         public CampaignsController(DataContext context, UserManager<User> userManager, 
-            AuthRepository authRepository, CampaignRepository campaignRepository)
+            IAuthRepository authRepository, ICampaignRepository campaignRepository)
         {
             _context = context;
             _userManager = userManager;

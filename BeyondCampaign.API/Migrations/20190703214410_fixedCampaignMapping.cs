@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeyondCampaign.API.Migrations
 {
-    public partial class InitMigration : Migration
+    public partial class fixedCampaignMapping : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -154,11 +154,30 @@ namespace BeyondCampaign.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
-                    CreatorId = table.Column<int>(nullable: true)
+                    CreatorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Campaigns", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CampaignModelMappings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CampaignId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CampaignModelMappings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CampaignModelMappings_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalTable: "Campaigns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -167,23 +186,25 @@ namespace BeyondCampaign.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CampaignIdId = table.Column<int>(nullable: false),
-                    DateOfSession = table.Column<DateTime>(nullable: false),
+                    CampaignId = table.Column<int>(nullable: false),
+                    DateOfSession = table.Column<DateTime>(nullable: true),
                     DateLogCreated = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(nullable: false),
                     Body = table.Column<string>(nullable: false),
                     AuthorId = table.Column<int>(nullable: false),
-                    LastUpdated = table.Column<DateTime>(nullable: false)
+                    Updated = table.Column<bool>(nullable: false),
+                    LastUpdated = table.Column<DateTime>(nullable: false),
+                    CampaignModelMappingId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SessionNotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SessionNotes_Campaigns_CampaignIdId",
-                        column: x => x.CampaignIdId,
-                        principalTable: "Campaigns",
+                        name: "FK_SessionNotes_CampaignModelMappings_CampaignModelMappingId",
+                        column: x => x.CampaignModelMappingId,
+                        principalTable: "CampaignModelMappings",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -206,8 +227,9 @@ namespace BeyondCampaign.API.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    UserDisplayName = table.Column<string>(nullable: true),
                     IsPlayer = table.Column<bool>(nullable: false),
-                    isGm = table.Column<bool>(nullable: false),
+                    IsGm = table.Column<bool>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     LastActive = table.Column<DateTime>(nullable: false),
                     CampaignId = table.Column<int>(nullable: true),
@@ -278,6 +300,12 @@ namespace BeyondCampaign.API.Migrations
                 column: "SessionNoteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CampaignModelMappings_CampaignId",
+                table: "CampaignModelMappings",
+                column: "CampaignId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Campaigns_CreatorId",
                 table: "Campaigns",
                 column: "CreatorId");
@@ -288,9 +316,9 @@ namespace BeyondCampaign.API.Migrations
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SessionNotes_CampaignIdId",
+                name: "IX_SessionNotes_CampaignModelMappingId",
                 table: "SessionNotes",
-                column: "CampaignIdId");
+                column: "CampaignModelMappingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Spells_ComponentsId",
@@ -335,7 +363,7 @@ namespace BeyondCampaign.API.Migrations
                 column: "CreatorId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_SessionNotes_AspNetUsers_AuthorId",
@@ -385,6 +413,9 @@ namespace BeyondCampaign.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "SessionNotes");
+
+            migrationBuilder.DropTable(
+                name: "CampaignModelMappings");
 
             migrationBuilder.DropTable(
                 name: "Campaigns");

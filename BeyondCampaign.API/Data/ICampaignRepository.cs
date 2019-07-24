@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BeyondCampaign.API.Data
 {
-    internal interface ICampaignRepository
+    public interface ICampaignRepository
     {
         Task<bool> CampaignExists(int id);
     }
