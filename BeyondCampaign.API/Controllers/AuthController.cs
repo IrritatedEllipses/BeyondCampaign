@@ -23,26 +23,26 @@ namespace BeyondCampaign.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _config;
-        private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IUsersRepository _usersRepository;
+        private readonly IAuthRepository _authRepository;
 
-        public AuthController(IConfiguration config, IMapper mapper, 
+        public AuthController(IUsersRepository usersRepository, IAuthRepository authRepository,
             UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _config = config;
-            _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _usersRepository = usersRepository;
+            _authRepository = authRepository;
         }
 
         [HttpGet("isUserNameAvailable/{username}")]
         public async Task<IActionResult> IsUserNameAvailable(string username)
         {
-            var result = await _userManager.FindByNameAsync(username);
+            var result = await _usersRepository.IsUserNameAvailable(username);
 
-            if (result == null)
+            if (!result)
             {
                 return Ok();
             }
@@ -52,16 +52,14 @@ namespace BeyondCampaign.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            var userToCreate = _mapper.Map<User>(userForRegisterDto);
-            var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
+            var result = await _authRepository.Register(userForRegisterDto);
 
-            if (result.Succeeded)
+            if (result.Id > 0)
             {
                 return Ok(userForRegisterDto);
             }
 
-            return BadRequest(result.Errors);
-
+            return BadRequest(result);
         }
 
         [HttpPost("login")]
@@ -75,7 +73,7 @@ namespace BeyondCampaign.API.Controllers
             {
                 return Ok(new
                 {
-                    token = GenerateJWT(user).Result
+                    token = _authRepository.GenerateJWT(user)
                 });
             }
 
@@ -83,31 +81,6 @@ namespace BeyondCampaign.API.Controllers
 
         }
 
-        private async Task<string> GenerateJWT(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(_config.GetSection("AppSettings:Token").Value));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
-        }
+        
     }
 }

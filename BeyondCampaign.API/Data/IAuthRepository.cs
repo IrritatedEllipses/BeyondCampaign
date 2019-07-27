@@ -7,7 +7,6 @@ namespace BeyondCampaign.API.Data
     public interface IAuthRepository
     {
          Task<User> Register(UserForRegisterDto userForRegisterDto);
-         Task<User> Login(string username, string password);
-         Task<bool> UserExists(string username);
+         string GenerateJWT(User user);
     }
 }
